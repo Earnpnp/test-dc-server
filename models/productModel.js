@@ -8,7 +8,7 @@ const Product = sequelize.define("Product", {
     unique: true,
   },
   description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   type: {
@@ -21,27 +21,16 @@ const Product = sequelize.define("Product", {
     allowNull: false,
   },
   price: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     allowNull: false,
-  },
-  available: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true,
   },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  createdAt: {
-    type: DataTypes.DATE,
+  image: {
+    type: DataTypes.BLOB,
     allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
   },
 });
 

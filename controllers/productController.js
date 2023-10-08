@@ -1,15 +1,26 @@
 const Product = require("../models/productModel");
+const upload = require("../middlewares/upload");
 
 exports.createProduct = async (req, res) => {
   try {
     const { name, description, type, price, quantity } = req.body;
+
+    if (!req.file) {
+      console.error("No image uploaded");
+      return res.status(400).json({ error: "Image upload is required" });
+    }
+
+    const image = req.file.buffer;
+
     const product = await Product.create({
       name,
       description,
       type,
       price,
       quantity,
+      image,
     });
+
     return res.status(201).json(product);
   } catch (error) {
     console.error("Error creating product:", error);
