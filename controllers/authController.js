@@ -7,9 +7,13 @@ const genToken = (payload) =>
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-exports.register = async (req, res) => {
+exports.register = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ email, password: hashedPassword });
@@ -22,7 +26,7 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({
@@ -41,7 +45,7 @@ exports.login = async (req, res) => {
 
     const token = genToken({ userId: user.id, email: user.email });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, user: { email } });
   } catch (err) {
     next(err);
   }

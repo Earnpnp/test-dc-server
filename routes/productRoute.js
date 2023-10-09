@@ -8,7 +8,7 @@ const {
   deleteProductById,
 } = require("../controllers/productController");
 
-router.post("/addProduct", upload.single("img"), createProduct);
+router.post("/addProduct", upload.single("file"), createProduct);
 router.get("/all", getAllProduct);
 router.put("/:id", updateProductById);
 router.delete("/:id", deleteProductById);
