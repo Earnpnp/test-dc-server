@@ -2,11 +2,12 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "assets");
+    cb(null, "./assets");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "." + file.mimetype.split("/")[1]);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 19);
+    cb(null, uniqueSuffix + file.originalname);
   },
 });
 
-module.exports = multer({ storage });
+module.exports = multer({ storage: storage }).single("file");
