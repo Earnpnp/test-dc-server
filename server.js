@@ -9,17 +9,17 @@ const userRoute = require("./routes/userRoute");
 const path = require("path");
 const app = express();
 
-app.use(express.json());
-
 app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParse.json({ limit: "10mb" }));
+app.use("/assets", express.static("/assets"));
+app.use(express.json());
 
 app.use("/", authRoute);
 app.use("/api", productRoute);
 app.use("/users", userRoute);
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
 
 const port = process.env.PORT || 8000;
 

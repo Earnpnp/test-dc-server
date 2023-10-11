@@ -10,7 +10,7 @@ const {
 } = require("../controllers/productController");
 const upload = require("../middlewares/upload");
 
-router.post("/product", authenticate, upload, createProduct);
+router.post("/product", upload, createProduct);
 router.get("/product", getAllProduct);
 router.get("/product/:id", getProductById);
 router.put("/product/:id", updateProductById);
