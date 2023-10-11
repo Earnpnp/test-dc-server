@@ -14,6 +14,10 @@ const Product = sequelize.define("Product", {
   file: {
     type: DataTypes.STRING,
   },
+  status: {
+    type: DataTypes.ENUM("active", "inactive"),
+    defaultValue: "active",
+  },
 });
 
 module.exports = Product;
